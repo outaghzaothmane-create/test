@@ -5,41 +5,41 @@ const Hero = () => {
   const { theme } = useTheme();
   
   return (
-    <section className={`pt-32 pb-24 px-6 relative overflow-hidden transition-colors ${
+    <section className={`pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-16 md:pb-24 px-4 sm:px-6 relative overflow-hidden transition-colors ${
       theme === 'dark' ? 'bg-dark-primary' : 'bg-light-primary'
     }`}>
       <div className="max-w-7xl mx-auto relative">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           {/* Left: Text Content */}
-          <div className="space-y-8 entrance-slide-up">
+          <div className="space-y-4 sm:space-y-6 md:space-y-8 entrance-slide-up text-center lg:text-left">
             <p className={`text-footnote font-medium tracking-wide transition-colors animate-fade-in ${
               theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
             }`}>
               NEW COLLECTION
             </p>
 
-            <h1 className={`text-display font-semibold leading-none tracking-tight transition-colors animate-fade-in-up animate-delay-200 ${
+            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-display font-semibold leading-tight sm:leading-none tracking-tight transition-colors animate-fade-in-up animate-delay-200 ${
               theme === 'dark' ? 'text-white' : 'text-gray-1000'
             }`}>
               Impossible is Nothing
             </h1>
             
-            <p className={`text-body leading-relaxed transition-colors animate-fade-in-up animate-delay-300 ${
+            <p className={`text-base sm:text-body leading-relaxed transition-colors animate-fade-in-up animate-delay-300 max-w-xl mx-auto lg:mx-0 ${
               theme === 'dark' ? 'text-gray-500' : 'text-gray-700'
             }`}>
               Push your limits. Break boundaries. Discover the latest in performance 
               and style with our premium athletic collection.
             </p>
             
-            <div className="flex flex-wrap items-center gap-4 animate-fade-in-up animate-delay-400">
-              <button className={`px-8 py-3.5 rounded-apple-lg font-semibold text-body transition-all active-scale hover-lift ${
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 sm:gap-4 animate-fade-in-up animate-delay-400">
+              <button className={`w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 rounded-apple-lg font-semibold text-sm sm:text-body transition-all active-scale hover-lift ${
                 theme === 'dark'
                   ? 'bg-white text-black hover:bg-gray-100 shadow-apple-md'
                   : 'bg-system-blue text-white hover:bg-blue-600 shadow-apple-md'
               }`}>
                 Shop Now
               </button>
-              <button className={`px-8 py-3.5 rounded-apple-lg font-semibold text-body border-2 transition-all active-scale hover-lift ${
+              <button className={`w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 rounded-apple-lg font-semibold text-sm sm:text-body border-2 transition-all active-scale hover-lift ${
                 theme === 'dark'
                   ? 'border-gray-600 text-white hover:bg-gray-800'
                   : 'border-gray-300 text-gray-900 hover:bg-gray-100'
@@ -50,8 +50,8 @@ const Hero = () => {
           </div>
           
           {/* Right: Product Image */}
-          <div className="relative animate-slide-in-right animate-delay-300">
-            <div className={`aspect-square rounded-apple-xl overflow-hidden shadow-apple-xl relative group hover-scale transition-all duration-500 ${
+          <div className="relative animate-slide-in-right animate-delay-300 order-first lg:order-last">
+            <div className={`aspect-square rounded-apple-lg sm:rounded-apple-xl overflow-hidden shadow-apple-lg sm:shadow-apple-xl relative group hover-scale transition-all duration-500 ${
               theme === 'dark'
                 ? 'bg-gray-900'
                 : 'bg-gray-100'
@@ -63,7 +63,7 @@ const Hero = () => {
                 loading="eager"
               />
               {/* Product Info Overlay */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-black/80 to-transparent">
                 <p className={`text-headline font-semibold text-white transition-colors`}>
                   Gazelle Blue
                 </p>

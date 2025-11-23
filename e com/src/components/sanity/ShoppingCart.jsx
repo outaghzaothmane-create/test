@@ -19,9 +19,9 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
         onClick={onClose}
       />
 
-      {/* Cart Drawer with Apple-style notch */}
+      {/* Cart Drawer with Apple-style notch - Full width on mobile, max-width on desktop */}
       <div
-        className={`fixed top-0 right-0 h-full w-full max-w-md z-50 transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
+        className={`fixed top-0 right-0 h-full w-full sm:max-w-md z-50 transform transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] ${
           theme === 'dark'
             ? 'bg-dark-secondary'
             : 'bg-light-primary'
@@ -43,12 +43,12 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
           }`} />
         </div>
 
-        <div className="flex flex-col h-full pt-6">
+        <div className="flex flex-col h-full pt-4 sm:pt-6">
           {/* Header */}
-          <div className={`flex items-center justify-between px-6 pb-4 border-b transition-colors ${
+          <div className={`flex items-center justify-between px-4 sm:px-6 pb-4 border-b transition-colors ${
             theme === 'dark' ? 'border-gray-800' : 'border-gray-200'
           }`}>
-            <h2 className={`text-title-2 font-semibold transition-colors ${
+            <h2 className={`text-xl sm:text-title-2 font-semibold transition-colors ${
               theme === 'dark' ? 'text-white' : 'text-gray-900'
             }`}>
               Shopping Cart
@@ -68,7 +68,7 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
           </div>
 
           {/* Cart Items - Scrollable */}
-          <div className="flex-1 overflow-y-auto px-6 py-6">
+          <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 sm:py-6">
             {cartItems.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full py-20">
                 <div className={`w-20 h-20 rounded-apple-lg flex items-center justify-center mb-6 ${
@@ -103,7 +103,7 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
                     }`}
                   >
                     {/* Product Image */}
-                    <div className={`w-20 h-20 rounded-apple flex-shrink-0 overflow-hidden ${
+                    <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-apple flex-shrink-0 overflow-hidden ${
                       theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
                     }`}>
                       {item.image ? (
@@ -126,14 +126,14 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
                     
                     {/* Product Info */}
                     <div className="flex-1 min-w-0">
-                      <h3 className={`text-headline font-semibold mb-1 truncate transition-colors ${
+                      <h3 className={`text-sm sm:text-headline font-semibold mb-1 truncate transition-colors ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
                         {item.name}
                       </h3>
                       <div className="flex items-center gap-2 mb-2">
                         {item.color && (
-                          <p className={`text-subhead transition-colors ${
+                          <p className={`text-xs sm:text-subhead transition-colors ${
                             theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
                           }`}>
                             {item.color}
@@ -142,11 +142,11 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
                         {item.size && (
                           <>
                             {item.color && (
-                              <span className={`text-subhead transition-colors ${
+                              <span className={`text-xs sm:text-subhead transition-colors ${
                                 theme === 'dark' ? 'text-gray-600' : 'text-gray-400'
                               }`}>•</span>
                             )}
-                            <p className={`text-subhead transition-colors ${
+                            <p className={`text-xs sm:text-subhead transition-colors ${
                               theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
                             }`}>
                               Size: {item.size}
@@ -154,17 +154,17 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
                           </>
                         )}
                       </div>
-                      <p className={`text-body font-semibold mb-3 transition-colors ${
+                      <p className={`text-sm sm:text-body font-semibold mb-2 sm:mb-3 transition-colors ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
                         ${item.price.toLocaleString()}
                       </p>
                       
                       {/* Quantity Controls */}
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-2 sm:gap-3">
                         <button
                           onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}
-                          className={`w-9 h-9 rounded-apple flex items-center justify-center transition-all font-semibold text-body active-scale hover-lift ${
+                          className={`w-8 h-8 sm:w-9 sm:h-9 rounded-apple flex items-center justify-center transition-all font-semibold text-sm sm:text-body active-scale hover-lift ${
                             theme === 'dark'
                               ? 'bg-gray-800 text-white hover:bg-gray-700'
                               : 'bg-gray-200 text-gray-900 hover:bg-gray-300'
@@ -172,14 +172,14 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
                         >
                           −
                         </button>
-                        <span className={`w-8 text-center text-body font-semibold transition-colors ${
+                        <span className={`w-6 sm:w-8 text-center text-sm sm:text-body font-semibold transition-colors ${
                           theme === 'dark' ? 'text-white' : 'text-gray-900'
                         }`}>
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}
-                          className={`w-9 h-9 rounded-apple flex items-center justify-center transition-all font-semibold text-body active-scale hover-lift ${
+                          className={`w-8 h-8 sm:w-9 sm:h-9 rounded-apple flex items-center justify-center transition-all font-semibold text-sm sm:text-body active-scale hover-lift ${
                             theme === 'dark'
                               ? 'bg-gray-800 text-white hover:bg-gray-700'
                               : 'bg-gray-200 text-gray-900 hover:bg-gray-300'
@@ -211,19 +211,19 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
 
           {/* Footer - Fixed at bottom */}
           {cartItems.length > 0 && (
-            <div className={`border-t px-6 py-6 space-y-4 transition-colors ${
+            <div className={`border-t px-4 sm:px-6 py-4 sm:py-6 space-y-3 sm:space-y-4 transition-colors ${
               theme === 'dark' 
                 ? 'bg-dark-secondary border-gray-800' 
                 : 'bg-light-primary border-gray-200'
             }`}>
               {/* Subtotal */}
               <div className="flex items-center justify-between">
-                <span className={`text-body font-medium transition-colors ${
+                <span className={`text-sm sm:text-body font-medium transition-colors ${
                   theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
                 }`}>
                   Subtotal
                 </span>
-                <span className={`text-body font-semibold transition-colors ${
+                <span className={`text-sm sm:text-body font-semibold transition-colors ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
                   ${total.toLocaleString()}
@@ -234,12 +234,12 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
               <div className={`flex items-center justify-between pt-2 border-t ${
                 theme === 'dark' ? 'border-gray-800' : 'border-gray-200'
               }`}>
-                <span className={`text-headline font-semibold transition-colors ${
+                <span className={`text-base sm:text-headline font-semibold transition-colors ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
                   Total
                 </span>
-                <span className={`text-title-2 font-semibold transition-colors ${
+                <span className={`text-lg sm:text-title-2 font-semibold transition-colors ${
                   theme === 'dark' ? 'text-white' : 'text-gray-900'
                 }`}>
                   ${total.toLocaleString()}
@@ -248,7 +248,7 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
               
               {/* Checkout Button */}
               <button 
-                className={`w-full py-4 rounded-apple-lg font-semibold text-body transition-all active-scale hover-lift ${
+                className={`w-full py-3 sm:py-4 rounded-apple-lg font-semibold text-sm sm:text-body transition-all active-scale hover-lift ${
                   theme === 'dark'
                     ? 'bg-white text-black hover:bg-gray-100 shadow-apple-md'
                     : 'bg-system-blue text-white hover:bg-blue-600 shadow-apple-md'
@@ -260,7 +260,7 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
               {/* Continue Shopping */}
               <button
                 onClick={onClose}
-                className={`w-full py-3 rounded-apple-lg font-medium text-body transition-all hover-lift ${
+                className={`w-full py-2.5 sm:py-3 rounded-apple-lg font-medium text-sm sm:text-body transition-all hover-lift ${
                   theme === 'dark'
                     ? 'text-gray-400 hover:text-white'
                     : 'text-gray-600 hover:text-gray-900'

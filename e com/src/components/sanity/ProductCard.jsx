@@ -62,25 +62,25 @@ const ProductCard = memo(({ product, onAddToCart, index = 0, isClickable = true 
       </div>
       
       {/* Product Info */}
-      <div className="p-5 space-y-2">
-        <p className={`text-caption-2 font-medium transition-colors ${
+      <div className="p-4 sm:p-5 space-y-2">
+        <p className={`text-xs sm:text-caption-2 font-medium transition-colors ${
           theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
         }`}>{category}</p>
-        <h3 className={`text-headline font-semibold transition-colors ${
+        <h3 className={`text-base sm:text-headline font-semibold transition-colors ${
           theme === 'dark' ? 'text-white' : 'text-gray-900'
         }`}>{name}</h3>
         {color && (
-          <p className={`text-subhead transition-colors ${
+          <p className={`text-sm sm:text-subhead transition-colors ${
             theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
           }`}>{color}</p>
         )}
         <div className="flex items-center justify-between pt-2">
-          <span className={`text-title-2 font-semibold transition-colors ${
+          <span className={`text-lg sm:text-title-2 font-semibold transition-colors ${
             theme === 'dark' ? 'text-white' : 'text-gray-900'
           }`}>${price}</span>
           <button
             onClick={handleAddToCart}
-            className={`px-5 py-2 rounded-apple font-semibold text-subhead transition-all active-scale hover-lift ${
+            className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-apple font-semibold text-xs sm:text-subhead transition-all active-scale hover-lift ${
               theme === 'dark'
                 ? 'bg-gray-800 text-white hover:bg-gray-700'
                 : 'bg-system-blue text-white hover:bg-blue-600'
