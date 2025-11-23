@@ -1,7 +1,6 @@
 [build]
-  base = "e com"
   publish = "e com/dist"
-  command = "npm run build"
+  command = "cd \"e com\" && npm install && npm run build"
 
 [[redirects]]
   from = "/*"
