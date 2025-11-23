@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="description" content="Premium luxury e-commerce platform with Apple design system" />
+    <meta name="theme-color" content="#000000" />
+    <title>LUXE - Premium E-commerce</title>
+    
+    <!-- Preconnect to improve LCP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/main.jsx" as="script" />
+    
+    <!-- Apple touch icons -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    
+    <!-- Prevent layout shift by setting font-display -->
+    <style>
+      /* Critical CSS inline to prevent render blocking */
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, Helvetica Neue, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      #root {
+        min-height: 100vh;
+      }
+      /* Prevent FOUC */
+      html {
+        visibility: hidden;
+      }
+      html.loaded {
+        visibility: visible;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Mark HTML as loaded to prevent FOUC
+      document.documentElement.classList.add('loaded');
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
