@@ -1,3 +1,6 @@
+/* Import animations - must be at the top */
+@import './animations.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,9 +26,6 @@
     border-radius: 4px;
   }
 }
-
-/* Import animations */
-@import './animations.css';
 
 /* Gradient animation for hero text */
 @keyframes gradient {
