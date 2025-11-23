@@ -7,12 +7,12 @@ const FeaturedProducts = ({ onAddToCart }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const featuredProducts = [
-    { id: 1, name: 'Ultraboost 23', price: 180, category: 'Sneakers', color: 'Core Black' },
-    { id: 2, name: 'Samba OG', price: 100, category: 'Sneakers', color: 'White' },
-    { id: 3, name: 'Forum Low', price: 90, category: 'Sneakers', color: 'Cloud White' },
-    { id: 4, name: 'NMD R1', price: 130, category: 'Sneakers', color: 'Triple Black' },
-    { id: 5, name: 'Stan Smith', price: 80, category: 'Sneakers', color: 'White/Green' },
-    { id: 6, name: 'Superstar', price: 85, category: 'Sneakers', color: 'Core Black' }
+    { id: 1, name: 'Gazelle Blue', price: 90, category: 'Sneakers', color: 'Blue', image: '/images/image-1-gazelle-blue.jpg' },
+    { id: 2, name: 'Samba OG White', price: 100, category: 'Sneakers', color: 'White', image: '/images/image-8-samba-og-white.jpg' },
+    { id: 3, name: 'Gazelle White', price: 90, category: 'Sneakers', color: 'White', image: '/images/image-3-gazelle-white.jpg' },
+    { id: 4, name: 'Gazelle Black', price: 90, category: 'Sneakers', color: 'Black', image: '/images/image-2-gazelle-black.jpg' },
+    { id: 5, name: 'Samba OG Black', price: 100, category: 'Sneakers', color: 'Black', image: '/images/image-9-samba-og-black.jpg' },
+    { id: 6, name: 'Gazelle Grey', price: 90, category: 'Sneakers', color: 'Grey', image: '/images/image-4-gazelle-grey.jpg' }
   ];
 
   const productsPerView = 4;
@@ -28,7 +28,9 @@ const FeaturedProducts = ({ onAddToCart }) => {
 
   return (
     <section className={`py-24 px-6 relative overflow-hidden transition-colors ${
-      theme === 'dark' ? 'bg-dark-primary' : 'bg-light-primary'
+      theme === 'dark' 
+        ? 'bg-gradient-to-b from-dark-primary via-dark-secondary to-dark-primary' 
+        : 'bg-gradient-to-b from-light-primary via-light-secondary to-light-primary'
     }`}>
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between mb-12">
@@ -54,9 +56,7 @@ const FeaturedProducts = ({ onAddToCart }) => {
                   : 'bg-light-secondary hover:bg-gray-200 text-gray-900'
               }`}
             >
-              <svg className="w-5 h-5 icon-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
+              <span className="material-symbols-outlined text-xl icon-bounce">chevron_left</span>
             </button>
             <button
               onClick={nextSlide}
@@ -66,9 +66,7 @@ const FeaturedProducts = ({ onAddToCart }) => {
                   : 'bg-light-secondary hover:bg-gray-200 text-gray-900'
               }`}
             >
-              <svg className="w-5 h-5 icon-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
+              <span className="material-symbols-outlined text-xl icon-bounce">chevron_right</span>
             </button>
           </div>
         </div>

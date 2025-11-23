@@ -17,18 +17,18 @@ const Product = ({ onAddToCart }) => {
 
   // Product data (in a real app, this would come from an API)
   const allProducts = {
-    '1': { id: 1, name: 'Ultraboost 23', price: 180, category: 'Sneakers', color: 'Core Black', description: 'Experience ultimate comfort with the Ultraboost 23. Featuring our signature Boost midsole technology and Primeknit upper for a perfect fit.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
-    '2': { id: 2, name: 'Samba OG', price: 100, category: 'Sneakers', color: 'White', description: 'The classic Samba OG returns with timeless style and premium materials. A true icon that never goes out of fashion.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
-    '3': { id: 3, name: 'Forum Low', price: 90, category: 'Sneakers', color: 'Cloud White', description: 'Clean lines and minimalist design make the Forum Low a versatile addition to any wardrobe.', sizes: ['S', 'M', 'L'], inStock: true },
-    '4': { id: 4, name: 'NMD R1', price: 130, category: 'Sneakers', color: 'Triple Black', description: 'Street-ready style meets performance technology. The NMD R1 delivers comfort and style in equal measure.', sizes: ['M', 'L', 'XL'], inStock: true },
-    '5': { id: 5, name: 'Stan Smith', price: 80, category: 'Sneakers', color: 'White/Green', description: 'The legendary Stan Smith combines classic tennis heritage with modern comfort. A wardrobe essential.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
-    '6': { id: 6, name: 'Superstar', price: 85, category: 'Sneakers', color: 'Core Black', description: 'Iconic shell-toe design meets contemporary comfort. The Superstar is a true classic.', sizes: ['S', 'M', 'L'], inStock: true },
-    '7': { id: 7, name: 'Gazelle', price: 90, category: 'Sneakers', color: 'Cloud White', description: 'Retro-inspired design with modern comfort. The Gazelle brings vintage style to your everyday look.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
-    '8': { id: 8, name: 'Ozweego', price: 120, category: 'Sneakers', color: 'Core Black', description: 'Futuristic design meets everyday comfort. The Ozweego stands out with its unique aesthetic.', sizes: ['M', 'L', 'XL'], inStock: true },
-    '9': { id: 9, name: 'Yeezy Boost 350', price: 220, category: 'Sneakers', color: 'Zebra', description: 'Premium materials and innovative design come together in the Yeezy Boost 350. A statement piece for the modern sneaker enthusiast.', sizes: ['S', 'M', 'L'], inStock: true },
-    '10': { id: 10, name: 'ZX 2K Boost', price: 140, category: 'Sneakers', color: 'Core Black', description: 'Advanced Boost technology meets retro-inspired design. Maximum comfort, maximum style.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
-    '11': { id: 11, name: 'Tubular Shadow', price: 110, category: 'Sneakers', color: 'Core White', description: 'Sleek and modern, the Tubular Shadow offers a unique silhouette with premium comfort.', sizes: ['M', 'L'], inStock: true },
-    '12': { id: 12, name: 'Continental 80', price: 75, category: 'Sneakers', color: 'Cloud White', description: 'Classic tennis-inspired design with contemporary updates. The Continental 80 delivers timeless style.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
+    '1': { id: 1, name: 'Gazelle Blue', price: 90, category: 'Sneakers', color: 'Blue', image: '/images/image-1-gazelle-blue.jpg', description: 'Retro-inspired design with modern comfort. The Gazelle Blue brings vintage style to your everyday look with a vibrant blue colorway.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
+    '2': { id: 2, name: 'Samba OG White', price: 100, category: 'Sneakers', color: 'White', image: '/images/image-8-samba-og-white.jpg', description: 'The classic Samba OG returns with timeless style and premium materials. A true icon that never goes out of fashion.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
+    '3': { id: 3, name: 'Gazelle White', price: 90, category: 'Sneakers', color: 'White', image: '/images/image-3-gazelle-white.jpg', description: 'Clean lines and minimalist design make the Gazelle White a versatile addition to any wardrobe.', sizes: ['S', 'M', 'L'], inStock: true },
+    '4': { id: 4, name: 'Gazelle Black', price: 90, category: 'Sneakers', color: 'Black', image: '/images/image-2-gazelle-black.jpg', description: 'Street-ready style meets classic design. The Gazelle Black delivers comfort and style in equal measure.', sizes: ['M', 'L', 'XL'], inStock: true },
+    '5': { id: 5, name: 'Gazelle Burgundy', price: 90, category: 'Sneakers', color: 'Burgundy', image: '/images/image-5-gazelle-burgundy.jpg', description: 'The Gazelle Burgundy combines classic heritage with modern comfort. A wardrobe essential with rich burgundy tones.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
+    '6': { id: 6, name: 'Gazelle Pink', price: 90, category: 'Sneakers', color: 'Pink', image: '/images/image-6-gazelle-pink.jpg', description: 'Iconic design meets contemporary comfort. The Gazelle Pink is a true classic with a vibrant twist.', sizes: ['S', 'M', 'L'], inStock: true },
+    '7': { id: 7, name: 'Gazelle Grey', price: 90, category: 'Sneakers', color: 'Grey', image: '/images/image-4-gazelle-grey.jpg', description: 'Retro-inspired design with modern comfort. The Gazelle Grey brings vintage style to your everyday look.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
+    '8': { id: 8, name: 'Samba OG Black', price: 100, category: 'Sneakers', color: 'Black', image: '/images/image-9-samba-og-black.jpg', description: 'Futuristic design meets everyday comfort. The Samba OG Black stands out with its unique aesthetic.', sizes: ['M', 'L', 'XL'], inStock: true },
+    '9': { id: 9, name: 'Gazelle Black CQ', price: 95, category: 'Sneakers', color: 'Black', image: '/images/image-7-gazelle-black-cq.jpg', description: 'Premium materials and innovative design come together in the Gazelle Black CQ. A statement piece for the modern sneaker enthusiast.', sizes: ['S', 'M', 'L'], inStock: true },
+    '10': { id: 10, name: 'Campus 00s Grey', price: 85, category: 'Sneakers', color: 'Grey', image: '/images/image-10-campus-00s-grey.jpg', description: 'Advanced design meets retro-inspired style. Maximum comfort, maximum style with the Campus 00s Grey.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
+    '11': { id: 11, name: 'Gazelle Blue', price: 90, category: 'Sneakers', color: 'Blue', image: '/images/image-1-gazelle-blue.jpg', description: 'Sleek and modern, the Gazelle Blue offers a unique silhouette with premium comfort.', sizes: ['M', 'L'], inStock: true },
+    '12': { id: 12, name: 'Samba OG White', price: 100, category: 'Sneakers', color: 'White', image: '/images/image-8-samba-og-white.jpg', description: 'Classic tennis-inspired design with contemporary updates. The Samba OG White delivers timeless style.', sizes: ['S', 'M', 'L', 'XL'], inStock: true },
   };
 
   const product = allProducts[id] || allProducts['1'];
@@ -112,26 +112,35 @@ const Product = ({ onAddToCart }) => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
             {/* Product Image */}
-            <div className={`aspect-square rounded-apple-lg overflow-hidden ${
+            <div className={`aspect-square rounded-apple-lg overflow-hidden shadow-apple-lg relative group ${
               theme === 'dark' ? 'bg-gray-900' : 'bg-gray-100'
             }`}>
-              <div className="w-full h-full flex items-center justify-center relative">
-                <div className="text-center space-y-4">
-                  <div className={`w-48 h-48 rounded-apple mx-auto flex items-center justify-center transition-all duration-500 ${
-                    theme === 'dark' ? 'bg-gray-800' : 'bg-white shadow-apple'
-                  }`}>
-                    <svg className={`w-24 h-24 transition-all duration-500 ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                    }`} fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M21 11c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4 9 4v6zm-9 10c3.75-1 7-5.46 7-9.78V6.3l-7-3.12L5 6.3v4.92C5 15.54 8.25 20 12 21z"/>
-                      <path d="M9 8l6 3-6 3V8z"/>
-                    </svg>
+              {product.image ? (
+                <img 
+                  src={product.image} 
+                  alt={product.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="eager"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center relative">
+                  <div className="text-center space-y-4">
+                    <div className={`w-48 h-48 rounded-apple mx-auto flex items-center justify-center transition-all duration-500 ${
+                      theme === 'dark' ? 'bg-gray-800' : 'bg-white shadow-apple'
+                    }`}>
+                      <svg className={`w-24 h-24 transition-all duration-500 ${
+                        theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      }`} fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M21 11c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4 9 4v6zm-9 10c3.75-1 7-5.46 7-9.78V6.3l-7-3.12L5 6.3v4.92C5 15.54 8.25 20 12 21z"/>
+                        <path d="M9 8l6 3-6 3V8z"/>
+                      </svg>
+                    </div>
+                    <p className={`text-caption-1 font-medium transition-colors ${
+                      theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
+                    }`}>{product.category}</p>
                   </div>
-                  <p className={`text-caption-1 font-medium transition-colors ${
-                    theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
-                  }`}>{product.category}</p>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Product Info */}

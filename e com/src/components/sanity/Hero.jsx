@@ -49,37 +49,27 @@ const Hero = () => {
             </div>
           </div>
           
-          {/* Right: Product Image Placeholder */}
+          {/* Right: Product Image */}
           <div className="relative animate-slide-in-right animate-delay-300">
             <div className={`aspect-square rounded-apple-xl overflow-hidden shadow-apple-xl relative group hover-scale transition-all duration-500 ${
               theme === 'dark'
                 ? 'bg-gray-900'
                 : 'bg-gray-100'
             }`}>
-              <div className="w-full h-full flex items-center justify-center relative z-10">
-                <div className="text-center space-y-6">
-                  {/* Product Icon */}
-                  <div className={`w-32 h-32 rounded-apple-lg mx-auto flex items-center justify-center transition-all duration-500 group-hover:scale-110 ${
-                    theme === 'dark'
-                      ? 'bg-gray-800'
-                      : 'bg-white shadow-apple'
-                  }`}>
-                    <svg className={`w-16 h-16 transition-all duration-500 group-hover:rotate-12 ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                    }`} fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M21 11c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4 9 4v6zm-9 10c3.75-1 7-5.46 7-9.78V6.3l-7-3.12L5 6.3v4.92C5 15.54 8.25 20 12 21z"/>
-                      <path d="M9 8l6 3-6 3V8z"/>
-                    </svg>
-                  </div>
-                  <div>
-                    <p className={`text-headline font-semibold transition-colors ${
-                      theme === 'dark' ? 'text-white' : 'text-gray-900'
-                    }`}>Ultraboost 23</p>
-                    <p className={`text-subhead mt-1 transition-colors ${
-                      theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
-                    }`}>Core Black</p>
-                  </div>
-                </div>
+              <img 
+                src="/images/image-1-gazelle-blue.jpg" 
+                alt="Gazelle Blue - Featured Product"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="eager"
+              />
+              {/* Product Info Overlay */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
+                <p className={`text-headline font-semibold text-white transition-colors`}>
+                  Gazelle Blue
+                </p>
+                <p className={`text-subhead mt-1 text-white/80 transition-colors`}>
+                  Classic Style
+                </p>
               </div>
             </div>
           </div>

@@ -3,18 +3,23 @@ import { useTheme } from '../../contexts/ThemeContext';
 import ProductCard from './ProductCard';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
-const ProductGrid = ({ title, subtitle, products, onAddToCart }) => {
+const ProductGrid = ({ title, subtitle, products, onAddToCart, backgroundVariant = 'primary' }) => {
   const { theme } = useTheme();
   const [ref, isVisible] = useScrollAnimation({ threshold: 0.2 });
+  
+  // Determine background based on variant
+  const backgroundClass = backgroundVariant === 'secondary'
+    ? theme === 'dark'
+      ? 'bg-dark-secondary border-gray-800'
+      : 'bg-light-secondary border-gray-200'
+    : theme === 'dark'
+      ? 'bg-dark-primary border-gray-800'
+      : 'bg-light-primary border-gray-200';
   
   return (
     <section 
       ref={ref}
-      className={`py-24 px-6 border-t transition-colors ${
-        theme === 'dark'
-          ? 'bg-dark-primary border-gray-800'
-          : 'bg-light-primary border-gray-200'
-      }`}
+      className={`py-24 px-6 border-t transition-colors ${backgroundClass}`}
     >
       <div className="max-w-7xl mx-auto">
         <div className={`text-center mb-16 transition-all duration-500 ${

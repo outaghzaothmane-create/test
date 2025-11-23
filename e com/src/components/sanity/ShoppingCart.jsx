@@ -103,15 +103,25 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
                     }`}
                   >
                     {/* Product Image */}
-                    <div className={`w-20 h-20 rounded-apple flex-shrink-0 flex items-center justify-center ${
+                    <div className={`w-20 h-20 rounded-apple flex-shrink-0 overflow-hidden ${
                       theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
                     }`}>
-                      <svg className={`w-10 h-10 transition-colors ${
-                        theme === 'dark' ? 'text-gray-600' : 'text-gray-400'
-                      }`} fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M21 11c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4 9 4v6zm-9 10c3.75-1 7-5.46 7-9.78V6.3l-7-3.12L5 6.3v4.92C5 15.54 8.25 20 12 21z"/>
-                        <path d="M9 8l6 3-6 3V8z"/>
-                      </svg>
+                      {item.image ? (
+                        <img 
+                          src={item.image} 
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <svg className={`w-10 h-10 transition-colors ${
+                            theme === 'dark' ? 'text-gray-600' : 'text-gray-400'
+                          }`} fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M21 11c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V5l9-4 9 4v6zm-9 10c3.75-1 7-5.46 7-9.78V6.3l-7-3.12L5 6.3v4.92C5 15.54 8.25 20 12 21z"/>
+                            <path d="M9 8l6 3-6 3V8z"/>
+                          </svg>
+                        </div>
+                      )}
                     </div>
                     
                     {/* Product Info */}
@@ -121,13 +131,29 @@ const ShoppingCart = ({ isOpen, onClose, cartItems, onRemoveItem, onUpdateQuanti
                       }`}>
                         {item.name}
                       </h3>
-                      {item.color && (
-                        <p className={`text-subhead mb-2 transition-colors ${
-                          theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
-                        }`}>
-                          {item.color}
-                        </p>
-                      )}
+                      <div className="flex items-center gap-2 mb-2">
+                        {item.color && (
+                          <p className={`text-subhead transition-colors ${
+                            theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
+                          }`}>
+                            {item.color}
+                          </p>
+                        )}
+                        {item.size && (
+                          <>
+                            {item.color && (
+                              <span className={`text-subhead transition-colors ${
+                                theme === 'dark' ? 'text-gray-600' : 'text-gray-400'
+                              }`}>•</span>
+                            )}
+                            <p className={`text-subhead transition-colors ${
+                              theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
+                            }`}>
+                              Size: {item.size}
+                            </p>
+                          </>
+                        )}
+                      </div>
                       <p className={`text-body font-semibold mb-3 transition-colors ${
                         theme === 'dark' ? 'text-white' : 'text-gray-900'
                       }`}>
