@@ -1,99 +1,106 @@
-import React, { memo, useCallback } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useCart } from '../../contexts/CartContext';
+import QuickViewModal from './QuickViewModal';
 
-const ProductCard = memo(({ product, onAddToCart, index = 0, isClickable = true }) => {
+const ProductCard = ({ product, index }) => {
   const { theme } = useTheme();
-  const { id, name, price, image, category, color } = product;
+  const { addToCart } = useCart();
+  const [isHovered, setIsHovered] = useState(false);
+  const [isQuickViewOpen, setIsQuickViewOpen] = useState(false);
 
-  const handleAddToCart = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    onAddToCart(product);
-  }, [product, onAddToCart]);
-
-  const CardWrapper = isClickable ? Link : 'div';
-  const cardProps = isClickable ? { to: `/product/${id}` } : {};
+  const handleQuickView = (e) => {
+    e.preventDefault(); // Prevent navigation to product page
+    setIsQuickViewOpen(true);
+  };
 
   return (
-    <CardWrapper 
-      {...cardProps}
-      className={`group relative rounded-apple-lg overflow-hidden transition-all duration-300 hover:shadow-apple-lg hover-lift border animate-fade-in-up block ${
-        theme === 'dark'
-          ? 'bg-dark-secondary border-gray-800'
-          : 'bg-light-primary border-gray-200'
-      }`}
-      style={{ animationDelay: `${index * 0.1}s` }}
-    >
-      {/* Product Image */}
-      <div className={`aspect-square relative overflow-hidden ${
-        theme === 'dark'
-          ? 'bg-gray-900'
-          : 'bg-gray-100'
-      }`}>
-        {image ? (
-          <img 
-            src={image} 
-            alt={name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center relative z-10">
-            <div className="text-center space-y-4">
-              {/* Product Icon */}
-              <div className={`w-32 h-32 rounded-apple-lg mx-auto flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 ${
-                theme === 'dark'
-                  ? 'bg-gradient-to-br from-gray-800 to-gray-900'
-                  : 'bg-gradient-to-br from-white to-gray-50 shadow-apple-lg'
-              }`}>
-                <svg className={`w-16 h-16 transition-all duration-500 group-hover:scale-110 ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                }`} fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                </svg>
-              </div>
-              <p className={`text-caption-1 font-medium transition-colors ${
-                theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
-              }`}>{category}</p>
+    <>
+      <Link
+        to={`/product/${product.id}`}
+        className="group relative block"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className={`relative aspect-[3/4] overflow-hidden rounded-apple-lg mb-4 transition-all duration-500 ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'
+          }`}>
+          {product.image ? (
+            <img
+              src={product.image}
+              alt={product.name}
+              className={`w-full h-full object-cover object-center transition-transform duration-700 ${isHovered ? 'scale-110' : 'scale-100'
+                }`}
+              loading="lazy"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="material-symbols-outlined text-4xl text-gray-400">image</span>
             </div>
-          </div>
-        )}
-      </div>
-      
-      {/* Product Info */}
-      <div className="p-4 sm:p-5 space-y-2">
-        <p className={`text-xs sm:text-caption-2 font-medium transition-colors ${
-          theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
-        }`}>{category}</p>
-        <h3 className={`text-base sm:text-headline font-semibold transition-colors ${
-          theme === 'dark' ? 'text-white' : 'text-gray-900'
-        }`}>{name}</h3>
-        {color && (
-          <p className={`text-sm sm:text-subhead transition-colors ${
-            theme === 'dark' ? 'text-gray-500' : 'text-gray-600'
-          }`}>{color}</p>
-        )}
-        <div className="flex items-center justify-between pt-2">
-          <span className={`text-lg sm:text-title-2 font-semibold transition-colors ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
-          }`}>${price}</span>
-          <button
-            onClick={handleAddToCart}
-            className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-apple font-semibold text-xs sm:text-subhead transition-all active-scale hover-lift ${
-              theme === 'dark'
-                ? 'bg-gray-800 text-white hover:bg-gray-700'
-                : 'bg-system-blue text-white hover:bg-blue-600'
-            }`}
-          >
-            Add
-          </button>
-        </div>
-      </div>
-    </CardWrapper>
-  );
-});
+          )}
 
-ProductCard.displayName = 'ProductCard';
+          {/* Overlay Actions */}
+          <div className={`absolute inset-x-0 bottom-0 p-4 translate-y-full transition-transform duration-300 ${isHovered ? 'translate-y-0' : ''
+            }`}>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                addToCart(product);
+              }}
+              className={`w-full py-3 rounded-apple font-semibold shadow-lg mb-2 transition-transform active:scale-95 ${theme === 'dark'
+                  ? 'bg-white text-black hover:bg-gray-100'
+                  : 'bg-white text-gray-900 hover:bg-gray-50'
+                }`}
+            >
+              Add to Cart
+            </button>
+            <button
+              onClick={handleQuickView}
+              className={`w-full py-3 rounded-apple font-semibold shadow-lg backdrop-blur-md transition-transform active:scale-95 ${theme === 'dark'
+                  ? 'bg-black/50 text-white hover:bg-black/70'
+                  : 'bg-white/80 text-gray-900 hover:bg-white'
+                }`}
+            >
+              Quick View
+            </button>
+          </div>
+
+          {/* Badges */}
+          {product.isNew && (
+            <span className="absolute top-3 left-3 px-3 py-1 text-xs font-bold uppercase tracking-wider bg-black text-white rounded-full">
+              New
+            </span>
+          )}
+          {product.discount && (
+            <span className="absolute top-3 right-3 px-3 py-1 text-xs font-bold uppercase tracking-wider bg-system-red text-white rounded-full">
+              -{product.discount}%
+            </span>
+          )}
+        </div>
+
+        <div className="space-y-1">
+          <h3 className={`text-lg font-medium transition-colors ${theme === 'dark' ? 'text-white group-hover:text-gray-300' : 'text-gray-900 group-hover:text-gray-600'
+            }`}>
+            {product.name}
+          </h3>
+          <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
+            {product.category}
+          </p>
+          <div className="flex items-center justify-between">
+            <p className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+              ${product.price}
+            </p>
+          </div>
+        </div>
+      </Link>
+
+      <QuickViewModal
+        product={product}
+        isOpen={isQuickViewOpen}
+        onClose={() => setIsQuickViewOpen(false)}
+      />
+    </>
+  );
+};
 
 export default ProductCard;

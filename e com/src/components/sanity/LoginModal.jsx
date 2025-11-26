@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useAuth } from '../../contexts/AuthContext';
+import { useToast } from '../../contexts/ToastContext';
 
 const LoginModal = ({ isOpen, onClose }) => {
   const { theme } = useTheme();
+  const { login, register, socialLogin } = useAuth();
+  const { addToast } = useToast();
+
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const modalRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -12,63 +20,103 @@ const LoginModal = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  const handleGoogleLogin = () => {
-    // TODO: Implement Google OAuth
-    console.log('Google login clicked');
-    // Example: window.location.href = '/api/auth/google';
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      if (isLogin) {
+        await login(email, password);
+        addToast('Successfully logged in!', 'success');
+      } else {
+        await register({ email, password, firstName: 'New', lastName: 'User' });
+        addToast('Account created successfully!', 'success');
+      }
+      onClose();
+      // Reset form
+      setEmail('');
+      setPassword('');
+    } catch (error) {
+      console.error('Auth error:', error);
+      addToast(error.message || 'Authentication failed', 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleFacebookLogin = () => {
-    // TODO: Implement Facebook OAuth
-    console.log('Facebook login clicked');
-    // Example: window.location.href = '/api/auth/facebook';
+  const handleGoogleLogin = async () => {
+    try {
+      setLoading(true);
+      await socialLogin('Google');
+      addToast('Successfully logged in with Google!', 'success');
+      onClose();
+    } catch (error) {
+      addToast('Google login failed', 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleAppleLogin = () => {
-    // TODO: Implement Apple OAuth
-    console.log('Apple login clicked');
-    // Example: window.location.href = '/api/auth/apple';
+  const handleFacebookLogin = async () => {
+    try {
+      setLoading(true);
+      await socialLogin('Facebook');
+      addToast('Successfully logged in with Facebook!', 'success');
+      onClose();
+    } catch (error) {
+      addToast('Facebook login failed', 'error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAppleLogin = async () => {
+    try {
+      setLoading(true);
+      await socialLogin('Apple');
+      addToast('Successfully logged in with Apple!', 'success');
+      onClose();
+    } catch (error) {
+      addToast('Apple login failed', 'error');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 z-[100] transition-opacity duration-300 ${
-          isOpen 
-            ? 'opacity-100 bg-black/50 pointer-events-auto' 
-            : 'opacity-0 bg-black/0 pointer-events-none'
-        }`}
+        className={`fixed inset-0 z-[100] transition-opacity duration-300 ${isOpen
+          ? 'opacity-100 bg-black/50 pointer-events-auto'
+          : 'opacity-0 bg-black/0 pointer-events-none'
+          }`}
         onClick={onClose}
       ></div>
 
       {/* Modal */}
-      <div className={`fixed inset-0 z-[101] flex items-center justify-center p-4 transition-all duration-300 ${
-        isOpen ? 'pointer-events-auto' : 'pointer-events-none'
-      }`}
+      <div className={`fixed inset-0 z-[101] flex items-center justify-center p-4 transition-all duration-300 ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'
+        }`}
         onClick={onClose}
       >
         <div
           ref={modalRef}
-          className={`relative w-full max-w-md max-h-[90vh] overflow-y-auto rounded-apple-xl shadow-apple-xl transition-all duration-300 my-auto ${
-            isOpen 
-              ? 'opacity-100 scale-100 translate-y-0' 
-              : 'opacity-0 scale-95 translate-y-4'
-          } ${
-            theme === 'dark'
+          className={`relative w-full max-w-md max-h-[90vh] overflow-y-auto rounded-apple-xl shadow-apple-xl transition-all duration-300 my-auto ${isOpen
+            ? 'opacity-100 scale-100 translate-y-0'
+            : 'opacity-0 scale-95 translate-y-4'
+            } ${theme === 'dark'
               ? 'bg-dark-secondary border border-gray-800'
               : 'bg-light-primary border border-gray-200'
-          }`}
+            }`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Close Button */}
           <button
             onClick={onClose}
-            className={`absolute top-4 right-4 p-2 rounded-apple transition-all active-scale hover-lift ${
-              theme === 'dark'
-                ? 'text-gray-400 hover:text-white hover:bg-gray-800'
-                : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
-            }`}
+            className={`absolute top-4 right-4 p-2 rounded-apple transition-all active-scale hover-lift ${theme === 'dark'
+              ? 'text-gray-400 hover:text-white hover:bg-gray-800'
+              : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100'
+              }`}
           >
             <svg className="w-6 h-6 icon-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -78,14 +126,12 @@ const LoginModal = ({ isOpen, onClose }) => {
           <div className="p-6">
             {/* Header */}
             <div className="text-center mb-6">
-              <h2 className={`text-2xl font-bold mb-2 ${
-                theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
+              <h2 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                }`}>
                 {isLogin ? 'Welcome Back' : 'Create Account'}
               </h2>
-              <p className={`text-sm ${
-                theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-              }`}>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                }`}>
                 {isLogin
                   ? 'Sign in to continue shopping'
                   : 'Join us to start shopping'}
@@ -145,53 +191,52 @@ const LoginModal = ({ isOpen, onClose }) => {
 
             {/* Divider */}
             <div className="relative mb-5">
-              <div className={`absolute inset-0 flex items-center ${
-                theme === 'dark' ? 'border-gray-700' : 'border-gray-300'
-              }`}>
-                <div className={`w-full border-t ${
-                  theme === 'dark' ? 'border-gray-700' : 'border-gray-300'
-                }`}></div>
+              <div className={`absolute inset-0 flex items-center ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'
+                }`}>
+                <div className={`w-full border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-300'
+                  }`}></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className={`px-4 ${
-                  theme === 'dark' ? 'bg-dark-secondary text-gray-400' : 'bg-light-primary text-gray-500'
-                }`}>
+                <span className={`px-4 ${theme === 'dark' ? 'bg-dark-secondary text-gray-400' : 'bg-light-primary text-gray-500'
+                  }`}>
                   OR
                 </span>
               </div>
             </div>
 
             {/* Email/Password Form */}
-            <form className="space-y-3">
+            <form onSubmit={handleSubmit} className="space-y-3">
               <div>
-                <label className={`block text-sm font-medium mb-2 ${
-                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                }`}>
+                <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
                   Email
                 </label>
                 <input
                   type="email"
-                  className={`w-full px-4 py-2.5 rounded-lg border ${
-                    theme === 'dark'
-                      ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400'
-                      : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                  } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className={`w-full px-4 py-2.5 rounded-lg border ${theme === 'dark'
+                    ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400'
+                    : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                    } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   placeholder="your@email.com"
                 />
               </div>
               <div>
-                <label className={`block text-sm font-medium mb-2 ${
-                  theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
-                }`}>
+                <label className={`block text-sm font-medium mb-2 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
                   Password
                 </label>
                 <input
                   type="password"
-                  className={`w-full px-4 py-2.5 rounded-lg border ${
-                    theme === 'dark'
-                      ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400'
-                      : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
-                  } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  className={`w-full px-4 py-2.5 rounded-lg border ${theme === 'dark'
+                    ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400'
+                    : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+                    } focus:outline-none focus:ring-2 focus:ring-blue-500`}
                   placeholder="••••••••"
                 />
               </div>
@@ -202,17 +247,15 @@ const LoginModal = ({ isOpen, onClose }) => {
                       type="checkbox"
                       className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                     />
-                    <span className={`ml-2 text-sm ${
-                      theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                    }`}>
+                    <span className={`ml-2 text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                      }`}>
                       Remember me
                     </span>
                   </label>
                   <a
                     href="#"
-                    className={`text-sm ${
-                      theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
-                    }`}
+                    className={`text-sm ${theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
+                      }`}
                   >
                     Forgot password?
                   </a>
@@ -220,9 +263,11 @@ const LoginModal = ({ isOpen, onClose }) => {
               )}
               <button
                 type="submit"
-                className="w-full px-6 py-2.5 bg-system-blue text-white rounded-apple-lg font-semibold hover:bg-blue-700 transition-all active-scale hover-lift"
+                disabled={loading}
+                className={`w-full px-6 py-2.5 bg-system-blue text-white rounded-apple-lg font-semibold hover:bg-blue-700 transition-all active-scale hover-lift ${loading ? 'opacity-70 cursor-not-allowed' : ''
+                  }`}
               >
-                {isLogin ? 'Sign In' : 'Create Account'}
+                {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
               </button>
             </form>
 
@@ -230,25 +275,22 @@ const LoginModal = ({ isOpen, onClose }) => {
             <div className="mt-5 text-center">
               <button
                 onClick={() => setIsLogin(!isLogin)}
-                className={`text-sm ${
-                  theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                }`}
+                className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  }`}
               >
                 {isLogin ? (
                   <>
                     Don't have an account?{' '}
-                    <span className={`font-semibold ${
-                      theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
-                    }`}>
+                    <span className={`font-semibold ${theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
+                      }`}>
                       Sign up
                     </span>
                   </>
                 ) : (
                   <>
                     Already have an account?{' '}
-                    <span className={`font-semibold ${
-                      theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
-                    }`}>
+                    <span className={`font-semibold ${theme === 'dark' ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'
+                      }`}>
                       Sign in
                     </span>
                   </>

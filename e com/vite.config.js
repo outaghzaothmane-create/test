@@ -5,13 +5,14 @@ export default defineConfig({
   plugins: [react()],
   build: {
     // Optimize chunk splitting
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-        },
-      },
-    },
+    // Optimize chunk splitting
+    // rollupOptions: {
+    //   output: {
+    //     manualChunks: {
+    //       'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+    //     },
+    //   },
+    // },
     // Optimize build size
     minify: 'esbuild', // esbuild is faster and included with Vite
     // Enable source maps for production debugging (optional)
@@ -21,9 +22,9 @@ export default defineConfig({
   },
   // Optimize dev server
   server: {
-    headers: {
-      'Cache-Control': 'public, max-age=31536000',
-    },
+    // headers: {
+    //   'Cache-Control': 'public, max-age=31536000',
+    // },
   },
   // CSS optimization
   css: {
